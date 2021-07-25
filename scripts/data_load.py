@@ -3,6 +3,7 @@ from datetime import datetime
 import csv, logging
 
 def run():
+    print("data_load")
     logger = logging.getLogger(__name__)
     files = File.objects.all().filter(status = 'sin procesar')[:50]
 

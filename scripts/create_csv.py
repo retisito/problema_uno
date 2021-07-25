@@ -2,6 +2,7 @@ from archives.models import File, Data
 import csv
 
 def run():
+    print("create_csv")
     files = File.objects.all().filter(status = 'en proceso')[:50]
     rows = [
         [

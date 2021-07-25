@@ -6,3 +6,5 @@ curl -i -X GET localhost:8000/api/data
 
 python3 manage.py runscript db_empty
 python3 manage.py runscript data_load
+python3 manage.py runjobs minutely
+python3 manage.py runjobs -l
