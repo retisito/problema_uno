@@ -23,7 +23,7 @@ def run():
             # Se crea una entrada en Data si la data es correcta,
             # Si ya la entada existe, solo la retorna.    
             try:
-                data, created = Data.objects.get_or_create(
+                data, _ = Data.objects.get_or_create(
                     boro = row[0], objectid = int(row[1]), the_geom = row[2],
                     type = row[3], provider = row[4], name = row[5], location = row[6], 
                     lat = float(row[7]), lon = float(row[8]), x = float(row[9]), y = float(row[10]), 

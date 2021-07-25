@@ -1,8 +1,9 @@
-from .serializers import FileSerializer, DataSerializer
+from .serializers import FileSerializer, DataSerializer, CsvSerializer
+from django.http import JsonResponse, HttpResponse
 from rest_framework import generics, views
 from archives.models import File, Data
-from django.http import JsonResponse
-
+import mimetypes
+#from django.views import generic
 
 # Create your views here.
 
@@ -23,11 +24,11 @@ class UploadAPIView(views.APIView):
             output = { 'err': 'cuerpo mal formado', 'msj': msj}
             status = 400    
         else:    
-            destination = open(f'public/upload/{str(file_obj.id)}_{file_obj.name}', 'wb+')
+            handler = open(f'public/upload/{str(file_obj.id)}_{file_obj.name}', 'wb+')
             
             for chunk in file_ref.chunks():
-                destination.write(chunk)
-            destination.close()
+                handler.write(chunk)
+            handler.close()
             
             serializer = FileSerializer(file_obj)
             output = serializer.data 
@@ -43,3 +44,27 @@ class FilesAPIView(generics.ListAPIView):
 class DataAPIView(generics.ListAPIView):
     queryset = Data.objects.all()
     serializer_class = DataSerializer
+
+
+class CsvAPIView(generics.ListAPIView):
+    queryset = File.objects.all().filter(status = 'procesado')
+    serializer_class = CsvSerializer
+
+
+class CsvDetailAPIView(views.APIView):
+    def get(self, request, pk):
+        try:
+            file = File.objects.get(pk = pk)
+        except Exception as e:
+            output = {'err': 'file no existe', 'msj': 'El pk es invalido'}
+            return JsonResponse(output, status = 400)
+        else:
+            path = f'public/processed/{str(file.id)}_{file.name}'
+
+            handler = open(path, 'r')
+            mime_type, _ = mimetypes.guess_type(path)    
+
+            response = HttpResponse(handler, content_type = mime_type)
+            response['Content-Disposition'] = "attachment; filename = %s" % file.name
+            return response
+          
