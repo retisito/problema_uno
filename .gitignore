@@ -6,3 +6,4 @@ acme_project/__pycache__
 api/__pycache__
 archives/__pycache__
 scripts/__pycache__
+public/upload/*
