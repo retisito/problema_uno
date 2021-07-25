@@ -2,7 +2,7 @@ from archives.models import File, Data
 import csv
 
 def run():
-    files = File.objects.all().filter(status = 'en proceso')[:5]
+    files = File.objects.all().filter(status = 'en proceso')[:50]
     rows = [
         [
             'BORO', 'OBJECTID', 'the_geom' , 'TYPE', 'PROVIDER', 'NAME', 'LOCATION', 'LAT', 'LON', 'X', 

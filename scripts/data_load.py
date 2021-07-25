@@ -4,7 +4,7 @@ import csv, logging
 
 def run():
     logger = logging.getLogger(__name__)
-    files = File.objects.all().filter(status = 'sin procesar')[:5]
+    files = File.objects.all().filter(status = 'sin procesar')[:50]
 
     for file in files:
         # Trata de abrir el file si existe y si el formato es correcto
