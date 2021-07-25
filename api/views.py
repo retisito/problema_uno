@@ -1,17 +1,12 @@
-from rest_framework import generics, views, response
-from .serializers import FileSerializer
+from .serializers import FileSerializer, DataSerializer
+from rest_framework import generics, views
 from archives.models import File, Data
 from django.http import JsonResponse
-from datetime import datetime
 
 
 # Create your views here.
-#class FileAPIView(generics.ListAPIView):
-#    queryset = File.objects.all()
-#    serializer_class = FileSerializer
 
-
-class FileUploadAPIView(views.APIView):
+class UploadAPIView(views.APIView):
     def post(self, request, format = 'text/csv'):
         output = None
         status = 201
@@ -39,3 +34,12 @@ class FileUploadAPIView(views.APIView):
 
         return JsonResponse(output, status = status)
         
+
+class FilesAPIView(generics.ListAPIView):
+    queryset = File.objects.all().filter(status = 'sin procesar')
+    serializer_class = FileSerializer
+
+
+class DataAPIView(generics.ListAPIView):
+    queryset = Data.objects.all()
+    serializer_class = DataSerializer

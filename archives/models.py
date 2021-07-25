@@ -3,6 +3,7 @@ from django.db.models.fields import DateTimeField
 
 
 # Create your models here.
+
 class File(models.Model):
     name = models.TextField(max_length=50)
     date = models.DateTimeField()
@@ -36,7 +37,7 @@ class Data(models.Model):
     boroname = models.TextField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    file = models.ManyToManyField(File)
+    files = models.ManyToManyField(File)
 
     def __str__(self):
         return self.title
