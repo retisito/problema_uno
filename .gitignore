@@ -3,8 +3,8 @@ bin
 lib
 pyvenv.cfg
 
-public/upload/
-public/processed/
+public/upload/*
+public/processed/*
 
 __pycache__/
  *.pyc
