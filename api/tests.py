@@ -62,7 +62,7 @@ class ApiTest(TestCase):
         
         self.assertEquals(status.HTTP_200_OK, response.status_code)
         self.assertEquals(len(response.data), 0)
-
+    
     def test_data_api_view(self):
         self.client = APIClient()
         response = self.client.get('/api/data')

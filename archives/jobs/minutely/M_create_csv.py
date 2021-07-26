@@ -4,4 +4,5 @@ from scripts.create_csv import run
 
 class Job(BaseJob):
     def execute(self): 
-        run()
+        #run()
+        pass
