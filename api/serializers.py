@@ -1,8 +1,6 @@
-from django.http import request
 from rest_framework import serializers
 from archives.models import File, Data
 
-from django.utils.timezone import now
 
 class FileSerializer(serializers.ModelSerializer):
 
